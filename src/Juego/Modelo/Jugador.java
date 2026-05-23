@@ -51,7 +51,7 @@ public class Jugador {
         this.posicion = posicion;
     }
     public void takeDmg(int dmg){
-        this.vida = Math.max(0, this.vida - dmg); // Toma -dmg- cantidad de daño, se queda en 0 si sobrepasa su vida restante
+        this.vida = Math.max(0, this.vida - dmg); // Toma -dmg- cantidad de daño, se queda en 0 si sobrepasa su vida restante. El calculo del daño se hace previamente
     }
     public void curar(int heal){
         this.vida = Math.min(vidaMax, this.vida + heal); // Cura -heal- puntos de vida, capado en -vidaMax- puntos

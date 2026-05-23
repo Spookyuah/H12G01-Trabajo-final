@@ -1,6 +1,9 @@
 package Structures.Arrays;
 
 
+import Structures.Array;
+import Structures.Lista;
+
 class ArrayTest {
     public static void main(String[] args) {
         System.out.println("  TEST DE LISTA ");
