@@ -1,7 +1,5 @@
 package Juego.Modelo;
-import Structures.Arrays.*;
-
-import java.awt.*;
+import Structures.Array;
 
 public class Habitacion {
     private int id;
