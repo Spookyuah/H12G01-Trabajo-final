@@ -7,17 +7,17 @@ public class Jugador {
     private int vidaMax;
     private int atq;
     private int def;
-    private int spd;
+    private int vel;
     private Posicion posicion;
     private Inventario inventario;
 
-    public  Jugador(String nombre,  int vida, int vidaMax, int atq, int def, int spd, Posicion posicion) {
+    public  Jugador(String nombre,  int vida, int vidaMax, int atq, int def, int vel, Posicion posicion) {
         this.nombre = nombre;
         this.vida = vida;
         this.vidaMax = vidaMax;
         this.atq = atq;
         this.def = def;
-        this.spd = spd;
+        this.vel = vel;
         this.posicion = posicion;
         this.inventario = new Inventario(); // Inventario vacio
     }
@@ -37,8 +37,8 @@ public class Jugador {
     public int getDef() {
         return def;
     }
-    public int getSpd() {
-        return spd;
+    public int getVel() {
+        return vel;
     }
     public Posicion getPosicion() {
         return posicion;
@@ -61,7 +61,7 @@ public class Jugador {
     }
     @Override
     public String toString() {
-        return nombre + " [Vida: " + vida + "/" + vidaMax + "  Atq: " + atq + "  Def: " + def + "  Vel: " + spd + "  Posición: " + posicion + "]";
+        return nombre + " [Vida: " + vida + "/" + vidaMax + "  Atq: " + atq + "  Def: " + def + "  Vel: " + vel + "  Posición: " + posicion + "]";
     }
 
 

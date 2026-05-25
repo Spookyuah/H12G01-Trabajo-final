@@ -17,7 +17,7 @@ public class Celda {
         this(); //Crear celda vacia, cambiar tipo a uno dado
         this.tipo=tipo;
     }
-    public boolean transversable(){
+    public boolean traversable(){
         return this.tipo!=TipoCelda.Pared;
     }
     public boolean tieneEnemigo(){
