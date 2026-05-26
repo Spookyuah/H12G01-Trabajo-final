@@ -17,7 +17,7 @@ public class Inventario {
     public Objeto eliminarObjeto(int indice){
         return objetos.remove(indice);
     }
-    public Objeto obtenerObjeto(int indice){
+    public Objeto getObjeto(int indice){
         return objetos.get(indice);
     }
     public int getCantidad(){

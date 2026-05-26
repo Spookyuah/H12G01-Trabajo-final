@@ -30,7 +30,7 @@ public class Mapa {
     public Lista<Habitacion> getSalidas(){
         return arbolMapa.getHojas();
     }
-    public boolean isSalida(Habitacion actual){
+    public boolean esSalida(Habitacion actual){
         return arbolMapa.esHoja(actual);
     }
     public Habitacion getActual(){
