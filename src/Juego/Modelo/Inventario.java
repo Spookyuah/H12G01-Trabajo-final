@@ -1,4 +1,5 @@
 package Juego.Modelo;
+import Juego.Modelo.Objetos.Objeto;
 import Structures.ListasDobles.*;
 
 public class Inventario {

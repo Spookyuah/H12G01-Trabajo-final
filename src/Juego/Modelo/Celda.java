@@ -1,5 +1,7 @@
 package Juego.Modelo;
 
+import Juego.Modelo.Objetos.Objeto;
+
 public class Celda {
     public enum TipoCelda { Vacia, Pared, Puerta, Trampa } // Los tipos de celdas que puede haber en una habitacion
     private TipoCelda tipo;
