@@ -30,7 +30,20 @@ public class Inventario {
     public boolean estaVacio() {
         return objetos.isEmpty();
     }
+    public void vaciar(){
+        while (!estaVacio()) objetos.remove(0);
+    }
     public ListaDoble<Objeto> getTodos() {
         return objetos;
+    }
+
+    @Override
+    public String toString() {
+        if (estaVacio()) return "Inventario vacío";
+        StringBuilder sb = new StringBuilder("Inventario (" + objetos.getSize() + "/" + capacidad + "):");
+        for (int i = 0; i < objetos.getSize(); i++) {
+            sb.append("\n  ").append(i).append(". ").append(objetos.get(i).getNombre());
+        }
+        return sb.toString();
     }
 }

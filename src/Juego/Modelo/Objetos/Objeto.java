@@ -2,7 +2,7 @@ package Juego.Modelo.Objetos;
 
 import Juego.Modelo.Jugador;
 
-public abstract class Objeto implements Comparable<Objeto> {
+public abstract class Objeto implements Comparable<Objeto>{
     private String nombre;
     private String desc;
     private boolean equipable;
@@ -20,4 +20,9 @@ public abstract class Objeto implements Comparable<Objeto> {
     public boolean esConsumible() { return consumible; }
 
     public abstract void usar(Jugador jugador); // Funcion Usar personalizable para cada tipo de objeto
+
+    @Override
+    public int compareTo(Objeto otro) {
+        return this.nombre.compareTo(otro.nombre);
+    }
 }

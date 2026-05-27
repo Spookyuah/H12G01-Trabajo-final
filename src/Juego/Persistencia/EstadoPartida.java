@@ -6,7 +6,7 @@ public class EstadoPartida {
     public static class JugadorEstado {
         public String nombre;
         public int vida;
-        public int vidaMaxima;
+        public int vidaMax;
         public int ataque;
         public int defensa;
         public int velocidad;
@@ -17,7 +17,7 @@ public class EstadoPartida {
     }
     public static class ObjetoEstado {
         public String nombre;
-        public String descripcion;
+        public String desc;
         public String tipo;
         public int valor;
         public boolean equipable;
@@ -26,7 +26,7 @@ public class EstadoPartida {
     public static class EnemigoEstado {
         public String nombre;
         public int vida;
-        public int vidaMaxima;
+        public int vidaMax;
         public int ataque;
         public int defensa;
         public int velocidad;

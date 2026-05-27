@@ -25,17 +25,24 @@ public class Arbol<N> {
         raiz = new Nodo(dato);
         numNodos = 1;
     }
-    public void addHijo(N padre, N hijo){
-        Nodo nodoPadre = buscarNodo(raiz,padre);
+    public void addHijo(N padre, N hijo) {
+        Nodo nodoPadre = buscarNodo(raiz, padre);
 
-        if (nodoPadre==null) throw new IllegalArgumentException("El nodo padre no existe");
-        if (buscarNodo(raiz,hijo)!=null) throw new IllegalArgumentException("El nodo ya tiene hijos"); //En caso de intentar añadir un hijo que ya existe, para no tener ciclos
+        if (nodoPadre == null) throw new IllegalArgumentException("El nodo padre no existe en el árbol: " + padre);
 
+        // Verificar que el hijo no existe ya en el árbol
+        if (buscarNodo(raiz, hijo) != null) {
+            throw new IllegalArgumentException("El nodo hijo ya existe en el árbol: " + hijo);
+        }
+
+        // Crear el nuevo nodo hijo y enlazarlo
         Nodo nodoHijo = new Nodo(hijo);
         nodoHijo.padre = nodoPadre;
         nodoPadre.hijos.add(nodoHijo);
         numNodos++;
     }
+    //-------
+
 
     public Lista<N> getHijos(N dato){
         Nodo nodo= buscarNodo(raiz,dato);
@@ -115,18 +122,23 @@ public class Arbol<N> {
         return resultado;
     }
 
+    private Nodo buscarNodo(Nodo actual, N dato) {
+        if (actual == null) return null;
 
-    private Nodo buscarNodo(Nodo actual, N dato){ //Funcion recursiva para buscar un nodo en concreto
-        if (actual==null) return null;                  //Caso base: Null si actual esta vacio
-        if (actual.dato.equals(dato)) return actual;    //Caso base: Actual si actual es el buscado
+        if (actual.dato.equals(dato)) return actual;
 
-        for (int i=0; i<actual.hijos.size(); i++){
-            Nodo encontrado = buscarNodo(actual.hijos.get(i),dato); //Recursividad hasta que se cumpla algun caso base
-            if (encontrado!=null) return encontrado;
+        // Buscar en los hijos
+        for (int i = 0; i < actual.hijos.size(); i++) {
+            Nodo encontrado = buscarNodo(actual.hijos.get(i), dato);
+            if (encontrado != null) {
+                return encontrado;
+            }
         }
+
         return null;
     }
-     public Lista<N> trayecto(N objetivo){
+
+    public Lista<N> trayecto(N objetivo){
         Nodo nodo= buscarNodo(raiz, objetivo);
         if (nodo==null) return new Lista<>();
 
@@ -141,9 +153,9 @@ public class Arbol<N> {
             trayecto.add(pila.pop());
         }
         return trayecto;
-     }
+    }
 
-     public int profundidad(N dato){
+    public int profundidad(N dato){
         Nodo nodo= buscarNodo(raiz, dato);
         if (nodo==null) return -1;
         int depth=0;
@@ -153,7 +165,7 @@ public class Arbol<N> {
             actual=actual.padre;
         }
         return depth;
-     }
+    }
 
     public int altura() {
         return alturaInterna(raiz);

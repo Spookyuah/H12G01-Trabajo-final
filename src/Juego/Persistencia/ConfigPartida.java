@@ -30,7 +30,7 @@ public class ConfigPartida {
     }
     public static class ObjetoConfig{
         public String nombre;
-        public String descripcion;
+        public String desc;
         public String tipo;        // "POCION_VIDA", "ARMA", "ESCUDO", "LLAVE"
         public int valor;          // Puntos de curación, daño extra, etc.
         public boolean equipable;
@@ -39,7 +39,7 @@ public class ConfigPartida {
     public static class PuertaConfig{
         public int x;
         public int y;
-        public int idDestino;
+        public int idHabitacionDestino;
     }
     public static class JugadorConfig{
         public String nombre;

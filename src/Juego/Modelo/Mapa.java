@@ -11,6 +11,7 @@ public class Mapa {
         this.actual = null;
     }
     public void setInicial(Habitacion raiz){
+        arbolMapa.setRaiz(raiz);
         this.actual = raiz;
     }
     public void link(Habitacion padre, Habitacion hijo){
@@ -49,6 +50,7 @@ public class Mapa {
         return arbolMapa.esRaiz(h);
     }
     public int getNumHabitaciones(){
+        if (arbolMapa==null) return 0;
         return arbolMapa.getNumNodos();
     }
     @Override

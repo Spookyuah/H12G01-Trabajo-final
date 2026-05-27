@@ -1,6 +1,6 @@
 package Structures.ListasDobles;
 
-public class ListaDoble<T extends Comparable<T>> {
+public class ListaDoble<T extends Comparable<? super T>> { //Para que una lista doble pueda incorporar los subtipos de objeto
     protected NodoDoble<T> primero, ultimo;
     protected int size = 0;
 

@@ -11,10 +11,10 @@ public class Jugador {
     private Posicion posicion;
     private Inventario inventario;
 
-    public  Jugador(String nombre,  int vida, int vidaMax, int atq, int def, int vel, Posicion posicion) {
+    public  Jugador(String nombre,  int vida, int atq, int def, int vel, Posicion posicion) {
         this.nombre = nombre;
         this.vida = vida;
-        this.vidaMax = vidaMax;
+        this.vidaMax = vida; //Inicializar con vidaMax=vida, luego se cambiara con setVidaMax
         this.atq = atq;
         this.def = def;
         this.vel = vel;
@@ -50,6 +50,25 @@ public class Jugador {
     public void setPosicion(Posicion posicion) {
         this.posicion = posicion;
     }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public void setVida(int vida) {
+        this.vida = Math.max(0, Math.min(vidaMax, vida));
+    }
+    public void setVidaMax(int vidaMax) {
+        this.vidaMax = vidaMax;
+    }
+    public void setAtq(int atq) {
+        this.atq = atq;
+    }
+    public void setDef(int def) {
+        this.def = def;
+    }
+    public void setVel(int vel) {
+        this.vel = vel;
+    }
+
     public void takeDmg(int dmg){
         this.vida = Math.max(0, this.vida - dmg); // Toma -dmg- cantidad de daño, se queda en 0 si sobrepasa su vida restante. El calculo del daño se hace previamente
     }

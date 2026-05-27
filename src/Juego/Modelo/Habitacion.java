@@ -40,8 +40,18 @@ public class Habitacion {
         return pos.getX() >= 0 && pos.getX() < getFilas() && pos.getY() >= 0 && pos.getY() < getColumnas(); // pos.getX() es filas, pos.getY() es columnas
     }
 
+    @Override
+    public String toString() {
+        return "Habitacion " + id + " (" + getFilas() + "x" + getColumnas() + ")";
+    }
 
-
+    @Override
+    public boolean equals(Object obj) {  // Por problemas en debugging
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Habitacion otra = (Habitacion) obj;
+        return this.id == otra.id;
+    }
 
 
 }

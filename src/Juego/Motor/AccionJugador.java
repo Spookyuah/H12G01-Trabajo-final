@@ -68,4 +68,17 @@ public class AccionJugador {
     public boolean esRecoger()  { return tipoAccion == TipoAccion.RECOGER;}
     public boolean esAbrir()    { return tipoAccion == TipoAccion.ABRIR;}
     public boolean esNada()     { return tipoAccion == TipoAccion.NADA;}
+
+    @Override
+    public String toString() {
+        String mov = tieneMovimiento() ? "Mover a " + destino : "No mover";
+        String acc = switch (tipoAccion) {
+            case ATACAR -> " + Atacar " + direccion;
+            case USAR -> " + Usar objeto[" + indiceObjeto + "]";
+            case RECOGER -> " + Recoger " + direccion;
+            case ABRIR -> " + Abrir puerta " + direccion;
+            case NADA -> "";
+        };
+        return mov + acc;
+    }
 }

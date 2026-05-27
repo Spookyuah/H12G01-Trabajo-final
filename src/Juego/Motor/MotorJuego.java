@@ -204,7 +204,7 @@ public class MotorJuego {
         Habitacion hab =mapa.getActual();
         Posicion posJugador =jugador.getPosicion();
         registrar("Turno de "+enemigo.getNombre());
-        Lista<Posicion> rango= Movimiento.rangoMovimiento(hab, enemigo.getPosicion(), enemigo.getSpd());
+        Lista<Posicion> rango= Movimiento.rangoMovimiento(hab, enemigo.getPosicion(), enemigo.getVel());
         Posicion mejorPos=  Movimiento.buscarCercano(rango, posJugador);
         if (mejorPos != null && !mejorPos.equals(enemigo.getPosicion())) { //Si existe la mejor posicion y no esta ya en ella
             Posicion anterior= enemigo.getPosicion();
@@ -300,10 +300,24 @@ public class MotorJuego {
         return jugador;}
     public int getTurnosRestantes() {
         return turnosRestantes;}
-    public boolean isPartidaTerminada() {
+    public boolean esPartidaTerminada() {
         return partidaTerminada;}
-    public boolean isVictoria() {
+    public boolean esVictoria() {
         return victoria;}
+    public void limpiarEnemigos(){
+        this.enemigos= new Lista<>();
+    }
+    public void setTurnosRestantes(int turnosRestantes) {
+        this.turnosRestantes = turnosRestantes;
+    }
+
+    public void setVictoria(boolean victoria) {
+        this.victoria = victoria;
+    }
+
+    public void setPartidaTerminada(boolean partidaTerminada) {
+        this.partidaTerminada = partidaTerminada;
+    }
 
     public Lista<Posicion> getMovimientosPosibles() {
         return Movimiento.rangoMovimiento(mapa.getActual(), jugador.getPosicion(), jugador.getVel());

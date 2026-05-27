@@ -25,6 +25,9 @@ public class Celda {
     public boolean tieneEnemigo(){
         return this.enemigo!=null;
     }
+    public boolean tieneObjeto(){
+        return this.objeto!=null;
+    }
     public boolean esPuerta(){
         return this.tipo==TipoCelda.Puerta;
     }
