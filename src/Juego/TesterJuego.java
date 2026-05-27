@@ -73,6 +73,11 @@ public class TesterJuego {
 
     private MotorJuego probarCargaConfiguracion() {
         try {
+            String rutaNivel = elegirNivel();
+            if (rutaNivel == null) {
+                System.out.println("  ❌ No hay niveles disponibles.");
+                return null;
+            }
             GestorJSON gestor = new GestorJSON();
             MotorJuego motor = gestor.cargarConfig("resources/Config_partidaTest.json");
             System.out.println("  ✅ Configuración cargada correctamente.");
@@ -241,7 +246,7 @@ public class TesterJuego {
     private MotorJuego probarCargarPartida() {
         try {
             GestorJSON gestor = new GestorJSON();
-            MotorJuego motor = gestor.cargarPartida("resources/partida_guardada.json", "resources/Config_partidaTest.json");
+            MotorJuego motor = gestor.cargarPartida("resources/partida_guardada.json", elegirNivel());
             System.out.println("  ✅ Partida cargada correctamente.");
             return motor;
         } catch (IOException e) {
@@ -249,7 +254,28 @@ public class TesterJuego {
             return null;
         }
     }
+    private String elegirNivel() {
+        GestorJSON gestor = new GestorJSON();
+        Lista<String> niveles = gestor.listarNiveles("resources/niveles");
 
+        if (niveles.isEmpty()) {
+            System.out.println("  No se encontraron niveles en resources/niveles/");
+            return null;
+        }
+
+        System.out.println(">>> Niveles disponibles:");
+        for (int i = 0; i < niveles.size(); i++) {
+            System.out.println("  " + (i + 1) + ". " + niveles.get(i));
+        }
+
+        // Para el tester automático, elegimos el primero
+        // Cuando tengas interfaz gráfica, esto será un menú de selección
+        int elegido = 1;  // Por defecto el primero
+        String nivelSeleccionado = niveles.get(elegido - 1);
+        System.out.println("  Seleccionado: " + nivelSeleccionado);
+
+        return "resources/niveles/" + nivelSeleccionado;
+    }
     // ============================================================
     // VISUALIZACIÓN
     // ============================================================

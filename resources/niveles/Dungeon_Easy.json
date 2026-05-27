@@ -1,0 +1,128 @@
+{
+  "turnosTotales": 35,
+  "jugador": {
+    "nombre": "Aventurero Novel",
+    "vida": 120,
+    "atq": 15,
+    "def": 8,
+    "vel": 3,
+    "habitacion": 1,
+    "xInicial": 0,
+    "yInicial": 0
+  },
+  "habitaciones": [
+    {
+      "id": 1,
+      "filas": 4,
+      "columnas": 4,
+      "padreId": null,
+      "celdas": [
+        {"x": 0, "y": 0, "tipo": "VACIA"},
+        {"x": 0, "y": 1, "tipo": "VACIA", "objeto": {"nombre": "Poción de vida", "descripcion": "Restaura 20 puntos de vida", "tipo": "POCION_VIDA", "valor": 20, "equipable": false, "consumible": true}},
+        {"x": 0, "y": 2, "tipo": "VACIA"},
+        {"x": 0, "y": 3, "tipo": "VACIA"},
+        {"x": 1, "y": 0, "tipo": "VACIA"},
+        {"x": 1, "y": 1, "tipo": "PARED"},
+        {"x": 1, "y": 2, "tipo": "VACIA"},
+        {"x": 1, "y": 3, "tipo": "VACIA"},
+        {"x": 2, "y": 0, "tipo": "VACIA"},
+        {"x": 2, "y": 1, "tipo": "VACIA", "enemigo": {"nombre": "Goblin explorador", "vida": 20, "vidaMax": 20, "atq": 5, "def": 1, "vel": 2, "xInicial": 2, "yInicial": 1}},
+        {"x": 2, "y": 2, "tipo": "VACIA"},
+        {"x": 2, "y": 3, "tipo": "VACIA"},
+        {"x": 3, "y": 0, "tipo": "VACIA"},
+        {"x": 3, "y": 1, "tipo": "VACIA"},
+        {"x": 3, "y": 2, "tipo": "PUERTA"},
+        {"x": 3, "y": 3, "tipo": "VACIA", "objeto": {"nombre": "Escudo de madera", "descripcion": "Aumenta 3 puntos de defensa", "tipo": "ESCUDO", "valor": 3, "equipable": true, "consumible": false}}
+      ],
+      "puertas": [
+        {"x": 3, "y": 2, "idHabitacionDestino": 2}
+      ]
+    },
+    {
+      "id": 2,
+      "filas": 3,
+      "columnas": 5,
+      "padreId": 1,
+      "celdas": [
+        {"x": 0, "y": 0, "tipo": "VACIA"},
+        {"x": 0, "y": 1, "tipo": "TRAMPA"},
+        {"x": 0, "y": 2, "tipo": "PUERTA"},
+        {"x": 0, "y": 3, "tipo": "VACIA"},
+        {"x": 0, "y": 4, "tipo": "VACIA"},
+        {"x": 1, "y": 0, "tipo": "PARED"},
+        {"x": 1, "y": 1, "tipo": "VACIA", "enemigo": {"nombre": "Goblin guardian", "vida": 30, "vidaMax": 30, "atq": 8, "def": 2, "vel": 2, "xInicial": 1, "yInicial": 1}},
+        {"x": 1, "y": 2, "tipo": "VACIA"},
+        {"x": 1, "y": 3, "tipo": "VACIA", "objeto": {"nombre": "Poción de vida", "descripcion": "Restaura 20 puntos de vida", "tipo": "POCION_VIDA", "valor": 20, "equipable": false, "consumible": true}},
+        {"x": 1, "y": 4, "tipo": "PARED"},
+        {"x": 2, "y": 0, "tipo": "VACIA"},
+        {"x": 2, "y": 1, "tipo": "TRAMPA"},
+        {"x": 2, "y": 2, "tipo": "PUERTA"},
+        {"x": 2, "y": 3, "tipo": "VACIA"},
+        {"x": 2, "y": 4, "tipo": "VACIA"}
+      ],
+      "puertas": [
+        {"x": 0, "y": 2, "idHabitacionDestino": 3},
+        {"x": 2, "y": 2, "idHabitacionDestino": 4}
+      ]
+    },
+    {
+      "id": 3,
+      "filas": 3,
+      "columnas": 4,
+      "padreId": 2,
+      "celdas": [
+        {"x": 0, "y": 0, "tipo": "VACIA"},
+        {"x": 0, "y": 1, "tipo": "TRAMPA"},
+        {"x": 0, "y": 2, "tipo": "VACIA"},
+        {"x": 0, "y": 3, "tipo": "VACIA", "objeto": {"nombre": "Espada oxidada", "descripcion": "Aumenta 5 puntos de ataque", "tipo": "ARMA", "valor": 5, "equipable": true, "consumible": false}},
+        {"x": 1, "y": 0, "tipo": "PARED"},
+        {"x": 1, "y": 1, "tipo": "VACIA", "enemigo": {"nombre": "Orco salvaje", "vida": 45, "vidaMax": 45, "atq": 12, "def": 4, "vel": 1, "xInicial": 1, "yInicial": 1}},
+        {"x": 1, "y": 2, "tipo": "TRAMPA"},
+        {"x": 1, "y": 3, "tipo": "PARED"},
+        {"x": 2, "y": 0, "tipo": "VACIA"},
+        {"x": 2, "y": 1, "tipo": "VACIA"},
+        {"x": 2, "y": 2, "tipo": "PUERTA"},
+        {"x": 2, "y": 3, "tipo": "VACIA"}
+      ],
+      "puertas": [
+        {"x": 2, "y": 2, "idHabitacionDestino": 5}
+      ]
+    },
+    {
+      "id": 4,
+      "filas": 3,
+      "columnas": 3,
+      "padreId": 2,
+      "celdas": [
+        {"x": 0, "y": 0, "tipo": "VACIA"},
+        {"x": 0, "y": 1, "tipo": "TRAMPA"},
+        {"x": 0, "y": 2, "tipo": "VACIA"},
+        {"x": 1, "y": 0, "tipo": "VACIA", "objeto": {"nombre": "Poción de vida grande", "descripcion": "Restaura 50 puntos de vida", "tipo": "POCION_VIDA", "valor": 50, "equipable": false, "consumible": true}},
+        {"x": 1, "y": 1, "tipo": "TRAMPA"},
+        {"x": 1, "y": 2, "tipo": "VACIA", "enemigo": {"nombre": "Goblin emboscador", "vida": 35, "vidaMax": 35, "atq": 10, "def": 3, "vel": 2, "xInicial": 1, "yInicial": 2}},
+        {"x": 2, "y": 0, "tipo": "VACIA"},
+        {"x": 2, "y": 1, "tipo": "VACIA"},
+        {"x": 2, "y": 2, "tipo": "VACIA"}
+      ],
+      "puertas": []
+    },
+    {
+      "id": 5,
+      "filas": 3,
+      "columnas": 3,
+      "padreId": 3,
+      "celdas": [
+        {"x": 0, "y": 0, "tipo": "TRAMPA"},
+        {"x": 0, "y": 1, "tipo": "PARED"},
+        {"x": 0, "y": 2, "tipo": "TRAMPA"},
+        {"x": 1, "y": 0, "tipo": "VACIA"},
+        {"x": 1, "y": 1, "tipo": "VACIA", "enemigo": {"nombre": "Orco jefe", "vida": 60, "vidaMax": 60, "atq": 15, "def": 6, "vel": 1, "xInicial": 1, "yInicial": 1}},
+        {"x": 1, "y": 2, "tipo": "VACIA"},
+        {"x": 2, "y": 0, "tipo": "VACIA"},
+        {"x": 2, "y": 1, "tipo": "VACIA", "objeto": {"nombre": "Llave del tesoro", "descripcion": "Llave que abre la salida final", "tipo": "LLAVE", "valor": 0, "equipable": true, "consumible": false}},
+        {"x": 2, "y": 2, "tipo": "VACIA"}
+      ],
+      "puertas": []
+    }
+  ]
+}

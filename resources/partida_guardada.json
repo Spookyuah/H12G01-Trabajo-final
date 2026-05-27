@@ -1,15 +1,15 @@
 {
   "turnosRestantes": 20,
   "jugador": {
-    "nombre": "Aventurero",
-    "vida": 100,
+    "nombre": "Aventurero de prueba",
+    "vida": 91,
     "vidaMax": 100,
-    "ataque": 15,
-    "defensa": 5,
-    "velocidad": 3,
-    "habitacionActualId": 1,
-    "x": 2,
-    "y": 2,
+    "atq": 15,
+    "def": 5,
+    "vel": 3,
+    "habitacionActualId": 2,
+    "x": 0,
+    "y": 0,
     "inventario": [
       {
         "nombre": "Poción de vida",
@@ -22,15 +22,15 @@
   },
   "enemigos": [
     {
-      "nombre": "Goblin",
-      "vida": 12,
+      "nombre": "Orco",
+      "vida": 50,
       "vidaMax": 0,
-      "ataque": 0,
-      "defensa": 0,
-      "velocidad": 0,
-      "habitacionId": 1,
+      "atq": 12,
+      "def": 5,
+      "vel": 1,
+      "habitacionId": 2,
       "x": 0,
-      "y": 0
+      "y": 2
     }
   ],
   "celdasModificadas": [
@@ -91,11 +91,11 @@
       "tieneEnemigo": true,
       "enemigo": {
         "nombre": "Goblin",
-        "vida": 12,
+        "vida": 30,
         "vidaMax": 0,
-        "ataque": 0,
-        "defensa": 0,
-        "velocidad": 0,
+        "atq": 8,
+        "def": 2,
+        "vel": 2,
         "habitacionId": 1,
         "x": 1,
         "y": 2
@@ -207,9 +207,9 @@
         "nombre": "Orco",
         "vida": 50,
         "vidaMax": 0,
-        "ataque": 0,
-        "defensa": 0,
-        "velocidad": 0,
+        "atq": 12,
+        "def": 5,
+        "vel": 1,
         "habitacionId": 2,
         "x": 0,
         "y": 2
@@ -368,9 +368,9 @@
         "nombre": "Dragón",
         "vida": 80,
         "vidaMax": 0,
-        "ataque": 0,
-        "defensa": 0,
-        "velocidad": 0,
+        "atq": 20,
+        "def": 10,
+        "vel": 1,
         "habitacionId": 3,
         "x": 1,
         "y": 1

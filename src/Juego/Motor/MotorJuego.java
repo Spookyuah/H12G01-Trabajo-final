@@ -109,8 +109,8 @@ public class MotorJuego {
         }
         Objeto objeto= inv.getObjeto(indiceObjeto);
         objeto.usar(jugador);
-        if (objeto.esConsumible()) registrar (objeto.getNombre()+" consumido y eliminado."+objeto.getDesc());
-        else registrar("Objeto "+objeto.getNombre()+" usado. "+objeto.getDesc());
+        if (objeto.esConsumible()) registrar (objeto.getNombre()+" consumido y eliminado.");
+        else registrar("Objeto "+objeto.getNombre()+" usado.");
     }
 
     private void ejecutarRecoger(String direccion){
@@ -136,7 +136,7 @@ public class MotorJuego {
         }
         jugador.getInventario().cogerObjeto(objeto);
         celda.setObjeto(null);
-        registrar("Jugador recoge "+objeto.getNombre()+". "+objeto.getDesc());
+        registrar("Jugador recoge "+objeto.getNombre()+".");
     }
 
     private void ejecutarAbrir(String direccion){
@@ -166,6 +166,7 @@ public class MotorJuego {
         boolean exito=mapa.goToId(idDestino);
         if (exito) {
             registrar("Jugador pasa a la habitación " +idDestino);
+            jugador.setPosicion(new Posicion(0, 0)); //Siempre 0,0 al entrar a una nueva sala
             actualizarEnemigos();
         } else {
             registrar("Error. No se pudo cambiar a la habitación " + idDestino);
@@ -204,8 +205,17 @@ public class MotorJuego {
         Habitacion hab =mapa.getActual();
         Posicion posJugador =jugador.getPosicion();
         registrar("Turno de "+enemigo.getNombre());
-        Lista<Posicion> rango= Movimiento.rangoMovimiento(hab, enemigo.getPosicion(), enemigo.getVel());
+
+        if (enemigo.getPosicion().distanciaDe(posJugador) == 1) {   // ==1 significa que esta a una casilla de distancia, es decir adyacente
+            int dmg= calcularDmg(enemigo.getAtq(), jugador.getDef());
+            jugador.takeDmg(dmg);
+            registrar("El enemigo "+enemigo.getNombre()+" ataca al jugador y hace "+dmg+" puntos de daño. Vida restante "+jugador.getVida());
+            return;
+        }
+        Lista<Posicion> rango= Movimiento.rangoMovimiento(hab, enemigo.getPosicion(), enemigo.getVel()); //Si no esta adyacente
+
         Posicion mejorPos=  Movimiento.buscarCercano(rango, posJugador);
+
         if (mejorPos != null && !mejorPos.equals(enemigo.getPosicion())) { //Si existe la mejor posicion y no esta ya en ella
             Posicion anterior= enemigo.getPosicion();
             enemigo.setPosicion(mejorPos);
@@ -213,10 +223,10 @@ public class MotorJuego {
             verificarTrampaEnemigo(enemigo);
         }
         if (!enemigo.estaVivo()) return; //Aunque se elimina en verificarTrampaEnemigo, sigue estando en la cola de turnos y hay que finalizarlo aqui
-        if (enemigo.getPosicion().distanciaDe(posJugador) == 1) {   // ==1 significa que esta a una casilla de distancia, es decir adyacente
-            int dmg= calcularDmg(enemigo.getAtq(), jugador.getDef());
+        if (enemigo.getPosicion().distanciaDe(posJugador) == 1) {
+            int dmg = calcularDmg(enemigo.getAtq(), jugador.getDef());
             jugador.takeDmg(dmg);
-            registrar("El enemigo "+enemigo.getNombre()+" ataca al jugador y hace "+dmg+" puntos de daño. Vida restante "+jugador.getVida());
+            registrar("El enemigo " + enemigo.getNombre() + " ataca al jugador y hace " + dmg + " puntos de daño. Vida restante " + jugador.getVida());
         }
     }
 

@@ -47,7 +47,7 @@ public class GestorJSON {
                     if (cc.objeto != null) celda.setObjeto(extraerObjetoConfig(cc.objeto));
                     if (cc.enemigo != null) { //Recrear enemigos
                         ConfigPartida.EnemigoConfig ec = cc.enemigo;
-                        Enemigo enemigo = new Enemigo(ec.nombre, ec.vida, ec.vidaMax, ec.atq, ec.def, ec.vel, new Posicion(ec.xInicial, ec.yInicial));
+                        Enemigo enemigo = new Enemigo(ec.nombre, ec.vida, ec.vidaMax, ec.atq, ec.def, ec.vel, new Posicion(cc.x, cc.y));
                         celda.setEnemigo(enemigo);
                     }
                 }
@@ -121,7 +121,7 @@ public class GestorJSON {
 
         ConfigPartida.JugadorConfig jc = config.jugador; //--Recrear jugador
         Posicion posJugador = new Posicion(jc.xInicial, jc.yInicial);
-        Jugador jugador = new Jugador(jc.nombre, jc.vida, jc.ataque, jc.defensa, jc.velocidad, posJugador);
+        Jugador jugador = new Jugador(jc.nombre, jc.vida, jc.atq, jc.def, jc.vel, posJugador);
         mapa.goToId(jc.habitacion); //Colocar en la habitacion actual
 
         MotorJuego motor = new MotorJuego(mapa, jugador, config.turnosTotales); //--Crear motor de juego
@@ -153,9 +153,9 @@ public class GestorJSON {
         estado.jugador.nombre = jugador.getNombre();
         estado.jugador.vida = jugador.getVida();
         estado.jugador.vidaMax = jugador.getVidaMax();
-        estado.jugador.ataque = jugador.getAtq();
-        estado.jugador.defensa = jugador.getDef();
-        estado.jugador.velocidad = jugador.getVel();
+        estado.jugador.atq = jugador.getAtq();
+        estado.jugador.def = jugador.getDef();
+        estado.jugador.vel = jugador.getVel();
         estado.jugador.habitacionActualId = motor.getMapa().getActual().getId();
         estado.jugador.x = jugador.getPosicion().getX();
         estado.jugador.y = jugador.getPosicion().getY();
@@ -176,9 +176,9 @@ public class GestorJSON {
             ee.nombre = enemigo.getNombre();
             ee.vida = enemigo.getVida();
             ee.vidaMax = enemigo.getVidaMax();
-            ee.ataque = enemigo.getAtq();
-            ee.defensa = enemigo.getDef();
-            ee.velocidad = enemigo.getVel();
+            ee.atq = enemigo.getAtq();
+            ee.def = enemigo.getDef();
+            ee.vel = enemigo.getVel();
             ee.habitacionId = motor.getMapa().getActual().getId();
             ee.x = enemigo.getPosicion().getX();
             ee.y = enemigo.getPosicion().getY();
@@ -207,9 +207,9 @@ public class GestorJSON {
                         ce.enemigo.nombre = e.getNombre();
                         ce.enemigo.vida = e.getVida();
                         ce.enemigo.vidaMax = e.getVidaMax();
-                        ce.enemigo.ataque = e.getAtq();
-                        ce.enemigo.defensa = e.getDef();
-                        ce.enemigo.velocidad = e.getVel();
+                        ce.enemigo.atq = e.getAtq();
+                        ce.enemigo.def = e.getDef();
+                        ce.enemigo.vel = e.getVel();
                         ce.enemigo.habitacionId = hab.getId();
                         ce.enemigo.x = i;
                         ce.enemigo.y = j;
@@ -239,9 +239,9 @@ public class GestorJSON {
         motor.getJugador().setPosicion(new Posicion(estado.jugador.x, estado.jugador.y));
         motor.getJugador().setVidaMax(estado.jugador.vidaMax);
         motor.getJugador().setVida(estado.jugador.vida);
-        motor.getJugador().setAtq(estado.jugador.ataque);
-        motor.getJugador().setDef(estado.jugador.defensa);
-        motor.getJugador().setVel(estado.jugador.velocidad);
+        motor.getJugador().setAtq(estado.jugador.atq);
+        motor.getJugador().setDef(estado.jugador.def);
+        motor.getJugador().setVel(estado.jugador.vel);
 
         motor.getJugador().getInventario().vaciar();
         for (int i = 0; i < estado.jugador.inventario.size(); i++) {
@@ -276,9 +276,9 @@ public class GestorJSON {
                         ce.enemigo.nombre,
                         ce.enemigo.vida,
                         ce.enemigo.vidaMax,
-                        ce.enemigo.ataque,
-                        ce.enemigo.defensa,
-                        ce.enemigo.velocidad,
+                        ce.enemigo.atq,
+                        ce.enemigo.def,
+                        ce.enemigo.vel,
                         new Posicion(ce.x, ce.y)
                 );
                 celda.setEnemigo(enemigo);
@@ -356,5 +356,23 @@ public class GestorJSON {
             }
         }
         return null;
+    }
+
+    public Lista<String> listarNiveles(String carpetaNiveles) { //Para el selector de niveles
+        Lista<String> niveles = new Lista<>();
+
+        java.io.File carpeta = new java.io.File(carpetaNiveles);
+        if (!carpeta.exists() || !carpeta.isDirectory()) {
+            return niveles;
+        }
+        java.io.File[] archivos = carpeta.listFiles();
+        if (archivos != null) {
+            for (java.io.File archivo : archivos) {
+                if (archivo.getName().endsWith(".json")) {
+                    niveles.add(archivo.getName());
+                }
+            }
+        }
+        return niveles;
     }
 }

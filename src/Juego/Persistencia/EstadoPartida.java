@@ -7,9 +7,9 @@ public class EstadoPartida {
         public String nombre;
         public int vida;
         public int vidaMax;
-        public int ataque;
-        public int defensa;
-        public int velocidad;
+        public int atq;
+        public int def;
+        public int vel;
         public int habitacionActualId;
         public int x;
         public int y;
@@ -27,9 +27,9 @@ public class EstadoPartida {
         public String nombre;
         public int vida;
         public int vidaMax;
-        public int ataque;
-        public int defensa;
-        public int velocidad;
+        public int atq;
+        public int def;
+        public int vel;
         public int habitacionId;
         public int x;
         public int y;

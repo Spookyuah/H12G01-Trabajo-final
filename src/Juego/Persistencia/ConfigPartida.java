@@ -45,9 +45,9 @@ public class ConfigPartida {
         public String nombre;
         public int vida;
         public int vidaMax;
-        public int ataque;
-        public int defensa;
-        public int velocidad;
+        public int atq;
+        public int def;
+        public int vel;
         public int habitacion;
         public int xInicial;
         public int yInicial;

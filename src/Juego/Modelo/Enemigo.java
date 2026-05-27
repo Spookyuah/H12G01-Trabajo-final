@@ -33,7 +33,7 @@ public class Enemigo {
         return def;
     }
     public int getVel() {
-        return vel;
+        return this.vel;
     }
     public Posicion getPosicion() {
         return posicion;
