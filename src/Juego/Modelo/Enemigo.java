@@ -42,6 +42,7 @@ public class Enemigo {
         this.posicion = posicion;
     }
     public void takeDmg(int dmg){
+        if (dmg < 0) dmg=0;
         this.vida = Math.max(0, this.vida - dmg); // Toma -dmg- cantidad de daño, se queda en 0 si sobrepasa su vida restante
     }
     public boolean estaVivo(){

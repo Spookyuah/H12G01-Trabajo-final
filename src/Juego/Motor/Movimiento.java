@@ -15,10 +15,8 @@ public class Movimiento {   //La clase movimiento no va a crear ninguna instanci
         }
     }
     public static Lista<Posicion> rangoMovimiento(Habitacion h, Posicion origen, int vel) {
-        if (!h.esPosicionValida(origen))
-            throw new IllegalArgumentException("La posicion " + origen + " no existe en la habitacion" + h.getId());
-        if (!h.getCelda(origen).traversable())
-            throw new IllegalArgumentException("La celda " + origen + " no es traversable");
+        if (!h.esPosicionValida(origen)) throw new IllegalArgumentException("La posicion " + origen + " no existe en la habitacion" + h.getId());
+        if (!h.getCelda(origen).traversable()) throw new IllegalArgumentException("La celda " + origen + " no es traversable");
 
         Lista<Posicion> alcanzables = new Lista<>();
         int filas = h.getFilas();
@@ -43,7 +41,8 @@ public class Movimiento {   //La clase movimiento no va a crear ninguna instanci
 
                 if (!h.esPosicionValida(newX, newY)) continue;
                 if (visitado[newX][newY]) continue;
-                if (!h.getCelda(newX, newY).traversable()) continue;    //Solo procede si la celda que esta comprobando es valida, traversable, y no ha sido visitada ya
+                if (!h.getCelda(newX, newY).traversable()) continue;
+                if (h.getCelda(newX, newY).tieneEnemigo()) continue; //Solo procede si la celda que esta comprobando es valida, traversable, y no ha sido visitada ya
 
                 visitado[newX][newY] = true;
                 Posicion newPos= new Posicion(newX, newY);
@@ -62,6 +61,8 @@ public class Movimiento {   //La clase movimiento no va a crear ninguna instanci
 
         for (int i = 1; i < alcanzables.size(); i++) {
             Posicion actual= alcanzables.get(i);
+            if (actual.equals(objetivo)) continue;
+
             int distancia = actual.distanciaDe(objetivo);
             if (distancia<mejorDistancia) {
                 mejorDistancia= distancia;

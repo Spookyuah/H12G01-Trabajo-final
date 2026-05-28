@@ -1,43 +1,28 @@
 {
-  "turnosRestantes": 20,
+  "turnosRestantes": 22,
   "jugador": {
     "nombre": "Aventurero de prueba",
-    "vida": 98,
+    "vida": 91,
     "vidaMax": 100,
     "atq": 15,
     "def": 5,
     "vel": 3,
-    "habitacionActualId": 2,
+    "habitacionActualId": 1,
     "x": 0,
     "y": 0,
-    "inventario": [
-      {
-        "nombre": "Poción de vida",
-        "tipo": "GENERICO",
-        "valor": 0,
-        "equipable": false,
-        "consumible": true
-      },
-      {
-        "nombre": "Espada oxidada",
-        "tipo": "ARMA",
-        "valor": 5,
-        "equipable": true,
-        "consumible": false
-      }
-    ]
+    "inventario": []
   },
   "enemigos": [
     {
-      "nombre": "Orco",
-      "vida": 50,
+      "nombre": "Goblin",
+      "vida": 30,
       "vidaMax": 0,
-      "atq": 12,
-      "def": 5,
-      "vel": 1,
-      "habitacionId": 2,
+      "atq": 8,
+      "def": 2,
+      "vel": 2,
+      "habitacionId": 1,
       "x": 0,
-      "y": 2
+      "y": 1
     }
   ],
   "celdasModificadas": [
@@ -54,7 +39,14 @@
       "x": 0,
       "y": 1,
       "tipo": "Vacia",
-      "tieneObjeto": false,
+      "tieneObjeto": true,
+      "objeto": {
+        "nombre": "Poción de vida",
+        "tipo": "GENERICO",
+        "valor": 0,
+        "equipable": false,
+        "consumible": true
+      },
       "tieneEnemigo": false
     },
     {
@@ -145,7 +137,14 @@
       "x": 2,
       "y": 3,
       "tipo": "Vacia",
-      "tieneObjeto": false,
+      "tieneObjeto": true,
+      "objeto": {
+        "nombre": "Espada oxidada",
+        "tipo": "ARMA",
+        "valor": 5,
+        "equipable": true,
+        "consumible": false
+      },
       "tieneEnemigo": false
     },
     {

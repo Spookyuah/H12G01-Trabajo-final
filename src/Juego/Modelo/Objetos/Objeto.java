@@ -19,6 +19,8 @@ public abstract class Objeto implements Comparable<Objeto>{
     public boolean esEquipable() { return equipable; }
     public boolean esConsumible() { return consumible; }
 
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
     public abstract void usar(Jugador jugador); // Funcion Usar personalizable para cada tipo de objeto
 
     @Override

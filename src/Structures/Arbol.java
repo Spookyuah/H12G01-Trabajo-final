@@ -200,12 +200,4 @@ public class Arbol<N> {
             getHojasInterno(nodo.hijos.get(i), hojas);
         }
     }
-
-
-
-
-
-
-
-
 }

@@ -1,7 +1,7 @@
 package Juego.Motor;
 
 import Juego.Modelo.Habitacion;
-import Juego.Modelo.Objetos.Objeto;
+import Juego.Modelo.Objetos.*;
 import Structures.ColaPila.*;
 import Structures.Lista;
 import Juego.Modelo.*;
@@ -108,8 +108,15 @@ public class MotorJuego {
             return;
         }
         Objeto objeto= inv.getObjeto(indiceObjeto);
+
+        String nombre= objeto.getNombre(); //Almacenar nombre para Armas y Escudos
         objeto.usar(jugador);
-        if (objeto.esConsumible()) registrar (objeto.getNombre()+" consumido y eliminado.");
+
+        if (objeto.esConsumible()){
+            inv.eliminarObjeto(indiceObjeto);
+            registrar (objeto.getNombre()+" consumido y eliminado.");
+        }
+        else if (objeto instanceof Arma || objeto instanceof Escudo) registrar(nombre + " equipado.");
         else registrar("Objeto "+objeto.getNombre()+" usado.");
     }
 
@@ -216,7 +223,7 @@ public class MotorJuego {
 
         Posicion mejorPos=  Movimiento.buscarCercano(rango, posJugador);
 
-        if (mejorPos != null && !mejorPos.equals(enemigo.getPosicion())) { //Si existe la mejor posicion y no esta ya en ella
+        if (!mejorPos.equals(enemigo.getPosicion())) { //Si existe la mejor posicion y no esta ya en ella //mejorPos != null &&
             Posicion anterior= enemigo.getPosicion();
             enemigo.setPosicion(mejorPos);
             registrar(enemigo.getNombre() + " se mueve a "+mejorPos);
@@ -260,10 +267,11 @@ public class MotorJuego {
     private void verificarFin(){
         Habitacion hab = mapa.getActual();
         if (mapa.esSalida(hab)){
-            partidaTerminada=true;
-            victoria=true;
-            registrar("Victoria: El jugador salio por la salida "+hab.getId());
-            return;
+            if (getEnemigosVivos().isEmpty()){
+                partidaTerminada = true;
+                victoria = true;
+                registrar("Victoria: El jugador salio por la salida " + hab.getId());
+            }
         }
         if (turnosRestantes <= 0) {
             partidaTerminada = true;
