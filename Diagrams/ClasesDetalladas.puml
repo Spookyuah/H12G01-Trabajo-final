@@ -1,0 +1,461 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class AccionJugador {
+  - AccionJugador(Posicion, TipoAccion, String, int):
+  - direccion: String
+  - indiceObjeto: int
+  - destino: Posicion
+  - tipoAccion: TipoAccion
+  + getDireccion(): String
+  + atacar(String): AccionJugador
+  + getIndiceObjeto(): int
+  + usar(int): AccionJugador
+  + recoger(String): AccionJugador
+  + esUsar(): boolean
+  + moverYRecoger(Posicion, String): AccionJugador
+  + esRecoger(): boolean
+  + nada(): AccionJugador
+  + mover(Posicion): AccionJugador
+  + abrir(String): AccionJugador
+  + esNada(): boolean
+  + tieneMovimiento(): boolean
+  + esAtaque(): boolean
+  + moverYUsar(Posicion, int): AccionJugador
+  + toString(): String
+  + moverYAtacar(Posicion, String): AccionJugador
+  + moverYAbrir(Posicion, String): AccionJugador
+  + esAbrir(): boolean
+  + getDestino(): Posicion
+  + getTipoAccion(): TipoAccion
+}
+class Arbol<N> {
+  + Arbol():
+  - raiz: Nodo
+  - numNodos: int
+  - alturaInterna(Nodo): int
+  + recorridoPreorden(): Lista<N>
+  - buscarNodo(Nodo, N): Nodo
+  + getHijos(N): Lista<N>
+  + getPadre(N): N
+  + getRaiz(): N
+  + altura(): int
+  + esHoja(N): boolean
+  - preordenInterno(Nodo, Lista<N>): void
+  + getHojas(): Lista<N>
+  + getNumNodos(): int
+  + recorridoPostorden(): Lista<N>
+  + recorridoPorNiveles(): Lista<N>
+  + trayecto(N): Lista<N>
+  - getHojasInterno(Nodo, Lista<N>): void
+  - postordenInterno(Nodo, Lista<N>): void
+  + setRaiz(N): void
+  + esRaiz(N): boolean
+  + profundidad(N): int
+  + addHijo(N, N): void
+}
+class Arma {
+  + Arma(String, String, int, boolean, boolean):
+  - bonusAtq: int
+  + getBonusAtq(): int
+  + usar(Jugador): void
+  - eliminarDelInventario(Jugador): void
+}
+class Array<T> {
+  + Array(int, int):
+  - nColumnas: int
+  - nFilas: int
+  - filas: Lista<Lista<T>>
+  - esPosicionValida(int, int): boolean
+  + getColumnas(): int
+  + getFila(int): Lista<T>
+  - validarIndices(int, int): void
+  - obtenerFila(int): Lista<T>
+  - validarFila(int): void
+  + set(int, int, T): void
+  + get(int, int): T
+  + getFilas(): int
+}
+class Celda {
+  + Celda(TipoCelda):
+  + Celda():
+  - enemigo: Enemigo
+  - tipo: TipoCelda
+  - objeto: Objeto
+  - idHabitacionDestino: int
+  + setEnemigo(Enemigo): void
+  + getEnemigo(): Enemigo
+  + traversable(): boolean
+  + getObjeto(): Objeto
+  + setTipo(TipoCelda): void
+  + esTrampa(): boolean
+  + setIdHabitacionDestino(int): void
+  + getIdHabitacionDestino(): int
+  + esPuerta(): boolean
+  + tieneObjeto(): boolean
+  + getTipo(): TipoCelda
+  + tieneEnemigo(): boolean
+  + setObjeto(Objeto): void
+}
+class Cola<T> {
+  + Cola():
+  - primero: Nodo<T>
+  - ultimo: Nodo<T>
+  - size: int
+  + peek(): T
+  + remove(): T
+  + add(T): void
+  + isEmpty(): boolean
+  + getSize(): int
+}
+class ConfigPartida {
+  + ConfigPartida():
+  + habitaciones: Lista<HabitacionConfig>
+  + turnosTotales: int
+  + jugador: JugadorConfig
+}
+class Enemigo {
+  + Enemigo(String, int, int, int, int, int, Posicion):
+  - atq: int
+  - vel: int
+  - nombre: String
+  - posicion: Posicion
+  - vidaMax: int
+  - vida: int
+  - def: int
+  + getVel(): int
+  + getVida(): int
+  + getVidaMax(): int
+  + getDef(): int
+  + getPosicion(): Posicion
+  + getAtq(): int
+  + setPosicion(Posicion): void
+  + estaVivo(): boolean
+  + getNombre(): String
+  + takeDmg(int): void
+  + toString(): String
+}
+class Escudo {
+  + Escudo(String, String, int, boolean, boolean):
+  - bonusDef: int
+  + usar(Jugador): void
+  + getBonusDef(): int
+  - eliminarDelInventario(Jugador): void
+}
+class EstadoPartida {
+  + EstadoPartida():
+  + victoria: boolean
+  + celdasModificadas: Lista<CeldaEstado>
+  + jugador: JugadorEstado
+  + enemigos: Lista<EnemigoEstado>
+  + turnosRestantes: int
+  + partidaTerminada: boolean
+}
+class GestorJSON {
+  + GestorJSON():
+  - gson: Gson
+  - extraerEstado(MotorJuego): EstadoPartida
+  - crearObjeto(String, String, String, int, boolean, boolean): Objeto
+  + listarNiveles(String): Lista<String>
+  + guardarPartida(MotorJuego, String): void
+  - convertirObjetoEstado(Objeto): ObjetoEstado
+  - extraerObjetoConfig(ObjetoConfig): Objeto
+  - extraerTipo(String): TipoCelda
+  + cargarPartida(String, String): MotorJuego
+  - buscarHabitacionId(Lista<Habitacion>, int): Habitacion?
+  + cargarConfig(String): MotorJuego
+  - aplicarEstado(MotorJuego, EstadoPartida): void
+  - extraerObjetoEstado(ObjetoEstado): Objeto
+  - construirMotorJuego(ConfigPartida): MotorJuego
+}
+class Habitacion {
+  + Habitacion(int, int, int):
+  - tablero: Array<Celda>
+  - id: int
+  + esPosicionValida(Posicion): boolean
+  + setCelda(Posicion, Celda): void
+  + equals(Object): boolean
+  + getFilas(): int
+  + getColumnas(): int
+  + setCelda(int, int, Celda): void
+  + getId(): int
+  + toString(): String
+  + getCelda(Posicion): Celda
+  + getCelda(int, int): Celda
+  + esPosicionValida(int, int): boolean
+}
+class Inventario {
+  + Inventario():
+  - objetos: ListaDoble<Objeto>
+  - capacidad: int
+  + getObjeto(int): Objeto
+  + estaLleno(): boolean
+  + getTodos(): ListaDoble<Objeto>
+  + eliminarObjeto(int): Objeto
+  + getCantidad(): int
+  + estaVacio(): boolean
+  + vaciar(): void
+  + cogerObjeto(Objeto): boolean
+  + toString(): String
+}
+class IteradorDoble<T> {
+  + IteradorDoble(NodoDoble<T>):
+  - actual: NodoDoble<T>
+  + hasNext(): boolean
+  + next(): T
+}
+class Jugador {
+  + Jugador(String, int, int, int, int, Posicion):
+  - atq: int
+  - def: int
+  - inventario: Inventario
+  - nombre: String
+  - vidaMax: int
+  - vida: int
+  - vel: int
+  - posicion: Posicion
+  + setVidaMax(int): void
+  + getVida(): int
+  + getVel(): int
+  + curar(int): void
+  + getInventario(): Inventario
+  + setAtq(int): void
+  + getNombre(): String
+  + estaVivo(): boolean
+  + setDef(int): void
+  + getAtq(): int
+  + setVel(int): void
+  + getVidaMax(): int
+  + setVida(int): void
+  + toString(): String
+  + setPosicion(Posicion): void
+  + takeDmg(int): void
+  + setNombre(String): void
+  + getDef(): int
+  + getPosicion(): Posicion
+}
+class Lista<T> {
+  + Lista():
+  - size: int
+  - primero: Nodo
+  + remove(int): T
+  + set(int, T): T
+  + size(): int
+  - validarIndice(int): void
+  + isEmpty(): boolean
+  + add(T): void
+  + get(int): T
+  + forEach(Consumer<T>): void
+}
+class ListaAdapter {
+  + ListaAdapter():
+  + deserialize(JsonElement, Type, JsonDeserializationContext): Lista<?>
+  + serialize(Lista<?>, Type, JsonSerializationContext): JsonElement
+}
+class ListaDoble<T> {
+  + ListaDoble():
+  # ultimo: NodoDoble<T>
+  # primero: NodoDoble<T>
+  # size: int
+  + getSize(): int
+  + getIterador(): IteradorDoble<T>
+  + add(T): void
+  + isEmpty(): boolean
+  + get(int): T
+  + remove(int): T
+}
+class Mapa {
+  + Mapa():
+  - arbolMapa: Arbol<Habitacion>
+  - actual: Habitacion
+  + getSiguientes(Habitacion): Lista<Habitacion>
+  + getActual(): Habitacion
+  + esInicial(Habitacion): boolean
+  + goToId(int): boolean
+  + setInicial(Habitacion): void
+  + link(Habitacion, Habitacion): void
+  + esSalida(Habitacion): boolean
+  + toString(): String
+  + caminoA(Habitacion): Lista<Habitacion>
+  + getSalidas(): Lista<Habitacion>
+  + getAllHabitaciones(): Lista<Habitacion>
+  + getNumHabitaciones(): int
+}
+class MotorJuego {
+  + MotorJuego(Mapa, Jugador, int):
+  - mapa: Mapa
+  - turnosRestantes: int
+  - victoria: boolean
+  - partidaTerminada: boolean
+  - enemigos: Lista<Enemigo>
+  - log: Cola<String>
+  - jugador: Jugador
+  + ejecutarTurnoJugador(AccionJugador): void
+  + removeEnemigo(Enemigo): void
+  + getMovimientosPosibles(): Lista<Posicion>
+  + addEnemigo(Enemigo): void
+  - actualizarEnemigos(): void
+  + getTurnosRestantes(): int
+  - verificarTrampaJugador(): void
+  - ejecutarUsar(int): void
+  + esPartidaTerminada(): boolean
+  - ejecutarAtaqueJugador(String): void
+  + getEnemigosVivos(): Lista<Enemigo>
+  + setTurnosRestantes(int): void
+  + esVictoria(): boolean
+  + limpiarEnemigos(): void
+  - calcularDmg(int, int): int
+  + getMapa(): Mapa
+  - moverJugador(Posicion): void
+  - esMovValido(Posicion): boolean
+  - calcularAdyacente(Posicion, String): Posicion
+  + getLog(): Lista<String>
+  - registrar(String): void
+  - ejecutarRecoger(String): void
+  - ejecutarAbrir(String): void
+  - verificarTrampaEnemigo(Enemigo): void
+  - ejecutarTurnoEnemigo(Enemigo): void
+  + setPartidaTerminada(boolean): void
+  + getJugador(): Jugador
+  + toString(): String
+  - verificarFin(): void
+  + setVictoria(boolean): void
+}
+class Movimiento {
+  + Movimiento():
+  + buscarCercano(Lista<Posicion>, Posicion): Posicion?
+  + rangoMovimiento(Habitacion, Posicion, int): Lista<Posicion>
+}
+class Nodo<T> {
+  ~ Nodo(T):
+  ~ siguiente: Nodo<T>
+  ~ dato: T
+}
+class NodoDoble<T> {
+  ~ NodoDoble(T):
+  ~ dato: T
+  ~ siguiente: NodoDoble<T>
+  ~ anterior: NodoDoble<T>
+}
+class Objeto {
+  + Objeto(String, String, boolean, boolean):
+  - consumible: boolean
+  - nombre: String
+  - desc: String
+  - equipable: boolean
+  + getNombre(): String
+  + getDesc(): String
+  + esConsumible(): boolean
+  + esEquipable(): boolean
+  + usar(Jugador): void
+  + setNombre(String): void
+  + compareTo(Objeto): int
+}
+class Pila<T> {
+  + Pila():
+  - cima: Nodo<T>
+  - size: int
+  + pop(): T
+  + peek(): T
+  + getSize(): int
+  + push(T): void
+  + isEmpty(): boolean
+}
+class Pocion {
+  + Pocion(String, String, int, boolean, boolean):
+  - heal: int
+  + getHeal(): int
+  + usar(Jugador): void
+}
+class Posicion {
+  + Posicion(int, int):
+  - x: int
+  - y: int
+  + distanciaDe(Posicion): int
+  + getY(): int
+  + setY(int): void
+  + setX(int): void
+  + equals(Object): boolean
+  + getX(): int
+  + toString(): String
+}
+class TesterJuego {
+  + TesterJuego():
+  - elegirNivel(): String?
+  - obtenerSimboloCelda(Celda): String
+  - probarAccionesJugador(MotorJuego): void
+  - mostrarUltimoLog(MotorJuego): void
+  + main(String[]): void
+  - mostrarEstadoResumido(MotorJuego): void
+  - mostrarTablero(MotorJuego): void
+  - decidirAccionAutomatica(MotorJuego): AccionJugador
+  - calcularAdyacente(Posicion, String): Posicion?
+  - mostrarEstadoCompleto(MotorJuego): void
+  - probarCargaConfiguracion(): MotorJuego?
+  - probarCargarPartida(): MotorJuego?
+  - ejecutarTurnosAutomaticos(MotorJuego, int): void
+  - probarGuardarPartida(MotorJuego): void
+}
+
+AccionJugador "1" *-[#595959,plain]-> "destino\n1" Posicion
+Arbol          -[#595959,dashed]->  Cola          : "«create»"
+Arbol          -[#595959,dashed]->  Lista         : "«create»"
+Arbol          -[#595959,dashed]->  Pila          : "«create»"
+Arma           -[#000082,plain]-^  Objeto
+Array         "1" *-[#595959,plain]-> "filas\n1" Lista
+Array          -[#595959,dashed]->  Lista         : "«create»"
+Celda         "1" *-[#595959,plain]-> "enemigo\n1" Enemigo
+Celda         "1" *-[#595959,plain]-> "objeto\n1" Objeto
+Cola           -[#595959,dashed]->  Nodo          : "«create»"
+Cola          "1" *-[#595959,plain]-> "primero\n1" Nodo
+ConfigPartida "1" *-[#595959,plain]-> "habitaciones\n1" Lista
+Enemigo       "1" *-[#595959,plain]-> "posicion\n1" Posicion
+Escudo         -[#000082,plain]-^  Objeto
+EstadoPartida "1" *-[#595959,plain]-> "enemigos\n1" Lista
+GestorJSON     -[#595959,dashed]->  Arma          : "«create»"
+GestorJSON     -[#595959,dashed]->  Enemigo       : "«create»"
+GestorJSON     -[#595959,dashed]->  Escudo        : "«create»"
+GestorJSON     -[#595959,dashed]->  EstadoPartida : "«create»"
+GestorJSON     -[#595959,dashed]->  Habitacion    : "«create»"
+GestorJSON     -[#595959,dashed]->  Jugador       : "«create»"
+GestorJSON     -[#595959,dashed]->  Lista         : "«create»"
+GestorJSON     -[#595959,dashed]->  ListaAdapter  : "«create»"
+GestorJSON     -[#595959,dashed]->  Mapa          : "«create»"
+GestorJSON     -[#595959,dashed]->  MotorJuego    : "«create»"
+GestorJSON     -[#595959,dashed]->  Pocion        : "«create»"
+GestorJSON     -[#595959,dashed]->  Posicion      : "«create»"
+Habitacion    "1" *-[#595959,plain]-> "tablero\n1" Array
+Habitacion     -[#595959,dashed]->  Array         : "«create»"
+Habitacion     -[#595959,dashed]->  Celda         : "«create»"
+Inventario     -[#595959,dashed]->  ListaDoble    : "«create»"
+Inventario    "1" *-[#595959,plain]-> "objetos\n1" ListaDoble
+IteradorDoble "1" *-[#595959,plain]-> "actual\n1" NodoDoble
+Jugador       "1" *-[#595959,plain]-> "inventario\n1" Inventario
+Jugador        -[#595959,dashed]->  Inventario    : "«create»"
+Jugador       "1" *-[#595959,plain]-> "posicion\n1" Posicion
+ListaAdapter   -[#595959,dashed]->  Lista         : "«create»"
+ListaDoble     -[#595959,dashed]->  IteradorDoble : "«create»"
+ListaDoble     -[#595959,dashed]->  NodoDoble     : "«create»"
+ListaDoble    "1" *-[#595959,plain]-> "primero\n1" NodoDoble
+Mapa           -[#595959,dashed]->  Arbol         : "«create»"
+Mapa          "1" *-[#595959,plain]-> "arbolMapa\n1" Arbol
+Mapa          "1" *-[#595959,plain]-> "actual\n1" Habitacion
+MotorJuego    "1" *-[#595959,plain]-> "log\n1" Cola
+MotorJuego     -[#595959,dashed]->  Cola          : "«create»"
+MotorJuego    "1" *-[#595959,plain]-> "jugador\n1" Jugador
+MotorJuego    "1" *-[#595959,plain]-> "enemigos\n1" Lista
+MotorJuego     -[#595959,dashed]->  Lista         : "«create»"
+MotorJuego    "1" *-[#595959,plain]-> "mapa\n1" Mapa
+MotorJuego     -[#595959,dashed]->  Posicion      : "«create»"
+Movimiento     -[#595959,dashed]->  Cola          : "«create»"
+Movimiento     -[#595959,dashed]->  Lista         : "«create»"
+Movimiento     -[#595959,dashed]->  Posicion      : "«create»"
+Pila           -[#595959,dashed]->  Nodo          : "«create»"
+Pila          "1" *-[#595959,plain]-> "cima\n1" Nodo
+Pocion         -[#000082,plain]-^  Objeto
+TesterJuego    -[#595959,dashed]->  GestorJSON    : "«create»"
+TesterJuego    -[#595959,dashed]->  Posicion      : "«create»"
+@enduml

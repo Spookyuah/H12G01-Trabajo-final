@@ -1,0 +1,66 @@
+@startuml
+[*] --> MenuPrincipal
+
+MenuPrincipal --> NuevaPartida : Jugador elige "Nueva Partida"
+MenuPrincipal --> CargarPartida : Jugador elige "Cargar Partida"
+
+NuevaPartida --> Configurando : Cargar JSON de configuración
+Configurando --> TurnoJugador : Partida iniciada
+
+CargarPartida --> TurnoJugador : Estado restaurado
+
+state TurnoJugador {
+    [*] --> EsperandoAccion
+    EsperandoAccion --> Moviendo : Jugador elige destino o decide no moverse y actuar
+    Moviendo --> Atacando
+    Moviendo --> UsandoObjeto
+    Moviendo --> Recogiendo
+    Moviendo --> AbriendoPuerta
+    Moviendo --> SinAccion : Jugador decide no actuar
+
+    Moviendo --> EjecutandoAccion : Movimiento realizado
+    SinAccion --> EjecutandoAccion : Sin acción
+
+    state EjecutandoAccion {
+        [*] --> VerificarTrampa :(Solo si ha habido movimiento)
+    }
+
+    Atacando --> EjecutandoAccion : Ataque realizado
+    UsandoObjeto --> EjecutandoAccion : Objeto usado
+    Recogiendo --> EjecutandoAccion : Objeto recogido
+    AbriendoPuerta --> CambiandoHabitacion : Puerta válida
+
+    CambiandoHabitacion --> TurnoJugador : Habitación cambiada
+}
+
+state TurnoEnemigos {
+    [*] --> ProcesandoEnemigo
+    ProcesandoEnemigo --> ProcesandoEnemigo : Siguiente enemigo
+    ProcesandoEnemigo --> MoverEnemigo : Enemigo no adyacente
+    ProcesandoEnemigo --> AtacarEnemigo : Enemigo adyacente
+    MoverEnemigo --> VerificarTrampaEnemigo : Movido
+    VerificarTrampaEnemigo --> AtacarEnemigo : Si está adyacente
+    VerificarTrampaEnemigo --> ProcesandoEnemigo : Si no
+    AtacarEnemigo --> ProcesandoEnemigo : Siguiente enemigo
+    ProcesandoEnemigo --> [*] : No hay más enemigos
+}
+
+EjecutandoAccion --> VerificarCondiciones : Turno enemigos terminado
+
+TurnoEnemigos --> TurnoJugador
+VerificarCondiciones --> TurnoEnemigos : Partida continúa
+VerificarCondiciones --> Victoria : Jugador en salida \n(Sin enemigos vivos)
+VerificarCondiciones --> DerrotaTurnos : Turnos agotados
+VerificarCondiciones --> DerrotaMuerte : Jugador sin vida
+
+Victoria --> [*]
+DerrotaTurnos --> [*]
+DerrotaMuerte --> [*]
+
+note right of VerificarCondiciones
+  Condiciones de fin:
+  - Victoria: llegar a hoja del árbol
+  - Derrota: turnos = 0
+  - Derrota: vida jugador = 0
+end note
+@enduml
