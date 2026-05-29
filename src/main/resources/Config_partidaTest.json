@@ -1,0 +1,86 @@
+{
+  "turnosTotales": 25,
+  "jugador": {
+    "nombre": "Aventurero de prueba",
+    "vida": 100,
+    "atq": 15,
+    "def": 5,
+    "vel": 3,
+    "habitacionInicial": 1,
+    "xInicial": 0,
+    "yInicial": 0
+  },
+  "habitaciones": [
+    {
+      "id": 1,
+      "filas": 4,
+      "columnas": 4,
+      "padreId": null,
+      "celdas": [
+        {"x": 0, "y": 0, "tipo": "VACIA"},
+        {"x": 0, "y": 1, "tipo": "VACIA", "objeto": {"nombre": "Pocion de vida", "descripcion": "Restaura 20 puntos de vida", "tipo": "POCION_VIDA", "valor": 20, "equipable": false, "consumible": true}},
+        {"x": 0, "y": 2, "tipo": "VACIA"},
+        {"x": 0, "y": 3, "tipo": "VACIA"},
+        {"x": 1, "y": 0, "tipo": "VACIA"},
+        {"x": 1, "y": 1, "tipo": "PARED"},
+        {"x": 1, "y": 2, "tipo": "VACIA", "enemigo": {"nombre": "Goblin", "vida": 30, "atq": 8, "def": 2, "vel": 2}},
+        {"x": 1, "y": 3, "tipo": "VACIA"},
+        {"x": 2, "y": 0, "tipo": "VACIA"},
+        {"x": 2, "y": 1, "tipo": "TRAMPA"},
+        {"x": 2, "y": 2, "tipo": "VACIA"},
+        {"x": 2, "y": 3, "tipo": "VACIA", "objeto": {"nombre": "Espada oxidada", "descripcion": "Aumenta 5 puntos de ataque", "tipo": "ARMA", "valor": 5, "equipable": true, "consumible": false}},
+        {"x": 3, "y": 0, "tipo": "VACIA"},
+        {"x": 3, "y": 1, "tipo": "VACIA"},
+        {"x": 3, "y": 2, "tipo": "PUERTA"},
+        {"x": 3, "y": 3, "tipo": "VACIA"}
+      ],
+      "puertas": [
+        {"x": 3, "y": 2, "idHabitacionDestino": 2}
+      ]
+    },
+    {
+      "id": 2,
+      "filas": 3,
+      "columnas": 5,
+      "padreId": 1,
+      "celdas": [
+        {"x": 0, "y": 0, "tipo": "VACIA"},
+        {"x": 0, "y": 1, "tipo": "PARED"},
+        {"x": 0, "y": 2, "tipo": "VACIA", "enemigo": {"nombre": "Orco", "vida": 50, "atq": 12, "def": 5, "vel": 1}},
+        {"x": 0, "y": 3, "tipo": "PARED"},
+        {"x": 0, "y": 4, "tipo": "VACIA"},
+        {"x": 1, "y": 0, "tipo": "VACIA", "objeto": {"nombre": "Escudo de madera", "descripcion": "Aumenta 3 puntos de defensa", "tipo": "ESCUDO", "valor": 3, "equipable": true, "consumible": false}},
+        {"x": 1, "y": 1, "tipo": "VACIA"},
+        {"x": 1, "y": 2, "tipo": "VACIA"},
+        {"x": 1, "y": 3, "tipo": "VACIA"},
+        {"x": 1, "y": 4, "tipo": "TRAMPA"},
+        {"x": 2, "y": 0, "tipo": "VACIA"},
+        {"x": 2, "y": 1, "tipo": "VACIA"},
+        {"x": 2, "y": 2, "tipo": "PUERTA"},
+        {"x": 2, "y": 3, "tipo": "VACIA", "objeto": {"nombre": "Pocion de vida grande", "descripcion": "Restaura 50 puntos de vida", "tipo": "POCION_VIDA", "valor": 50, "equipable": false, "consumible": true}},
+        {"x": 2, "y": 4, "tipo": "VACIA"}
+      ],
+      "puertas": [
+        {"x": 2, "y": 2, "idHabitacionDestino": 3}
+      ]
+    },
+    {
+      "id": 3,
+      "filas": 3,
+      "columnas": 3,
+      "padreId": 2,
+      "celdas": [
+        {"x": 0, "y": 0, "tipo": "VACIA"},
+        {"x": 0, "y": 1, "tipo": "PARED"},
+        {"x": 0, "y": 2, "tipo": "VACIA"},
+        {"x": 1, "y": 0, "tipo": "TRAMPA"},
+        {"x": 1, "y": 1, "tipo": "VACIA", "enemigo": {"nombre": "Dragon", "vida": 80, "atq": 20, "def": 10, "vel": 1}},
+        {"x": 1, "y": 2, "tipo": "VACIA", "objeto": {"nombre": "Llave oxidada", "descripcion": "Llave para abrir puertas cerradas", "tipo": "LLAVE", "valor": 0, "equipable": true, "consumible": false}},
+        {"x": 2, "y": 0, "tipo": "VACIA"},
+        {"x": 2, "y": 1, "tipo": "VACIA"},
+        {"x": 2, "y": 2, "tipo": "PUERTA"}
+      ],
+      "puertas": []
+    }
+  ]
+}
