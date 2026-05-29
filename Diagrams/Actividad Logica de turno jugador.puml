@@ -1,0 +1,132 @@
+@startuml
+skinparam activityFontSize 14
+skinparam noteFontSize 12
+
+start
+
+:Mostrar opciones al jugador;
+:Calcular celdas alcanzables (BFS);
+:Iluminar celdas alcanzables en el tablero;
+
+partition "Fase 1: Movimiento" {
+    if (¿Jugador elige moverse?) then (sí)
+        :Jugador selecciona celda destino;
+        if (¿Celda es alcanzable?) then (sí)
+            :Mover jugador a la celda destino;
+            :Actualizar posición en el tablero;
+        else (no)
+            :Mostrar error: movimiento inválido;
+        endif
+    else (no)
+        :Jugador permanece en su posición;
+    endif
+}
+
+partition "Fase 2: Acción" {
+    :Jugador elige tipo de acción;
+
+    switch (Tipo de acción)
+    case (ATACAR)
+        :Seleccionar dirección;
+        :Calcular celda adyacente;
+        if (¿Hay enemigo en la celda?) then (sí)
+            :Calcular daño con fórmula;
+            :Aplicar daño al enemigo;
+            if (¿Enemigo muere?) then (sí)
+                :Eliminar enemigo de la celda;
+                :Eliminar enemigo de la lista;
+                :Registrar "Enemigo derrotado";
+            else (no)
+                :Registrar daño infligido;
+            endif
+        else (no)
+            :Mostrar error: no hay enemigo;
+        endif
+
+    case (USAR OBJETO)
+        :Seleccionar objeto del inventario;
+        if (¿Índice válido?) then (sí)
+            :Aplicar efecto del objeto;
+            if (¿Objeto es consumible?) then (sí)
+                :Eliminar objeto del inventario;
+                :Registrar "Objeto consumido";
+            else (no)
+                if (¿Objeto es equipable?) then (sí)
+                    :Crear copia equipada y eliminar original;
+                    :Registrar "Objeto equipado";
+                else (no)
+                    :Registrar "Objeto usado";
+                endif
+            endif
+        else (no)
+            :Mostrar error: índice inválido;
+        endif
+
+    case (RECOGER)
+        :Seleccionar dirección;
+        :Calcular celda adyacente;
+        if (¿Hay objeto en la celda?) then (sí)
+            if (¿Inventario lleno?) then (sí)
+                :Mostrar error: inventario lleno;
+            else (no)
+                :Añadir objeto al inventario;
+                :Quitar objeto de la celda;
+                :Registrar "Objeto recogido";
+            endif
+        else (no)
+            :Mostrar error: no hay objeto;
+        endif
+
+    case (ABRIR PUERTA)
+        :Seleccionar dirección;
+        :Calcular celda adyacente;
+        if (¿Es una puerta?) then (sí)
+            if (¿Tiene destino válido?) then (sí)
+                :Cambiar a nueva habitación;
+                :Reposicionar jugador en (0,0);
+                :Actualizar lista de enemigos;
+                :Registrar "Habitación cambiada";
+                :Finalizar turno anticipadamente;
+                detach
+            else (no)
+                :Mostrar error: puerta sin destino;
+            endif
+        else (no)
+            :Mostrar error: no es una puerta;
+        endif
+
+    case (NADA)
+        :Pasar turno sin acción;
+    endswitch
+}
+
+partition "Fase 3: Verificaciones post-acción" {
+    if (¿Celda actual es trampa?) then (sí)
+        :Calcular daño de trampa;
+        :Aplicar daño al jugador;
+        :Convertir celda a VACIA;
+        :Registrar "Jugador cayó en trampa";
+    else (no)
+    endif
+
+    :Reducir contador de turnos en 1;
+
+    if (¿Jugador en habitación de salida?) then (sí)
+        :Marcar partida como VICTORIA;
+        :Mostrar pantalla de victoria;
+        stop
+    else if (¿Turnos restantes = 0?) then (sí)
+        :Marcar partida como DERROTA;
+        :Mostrar pantalla de derrota;
+        stop
+    else if (¿Jugador sin vida?) then (sí)
+        :Marcar partida como DERROTA;
+        :Mostrar pantalla de derrota;
+        stop
+    else (no)
+        :Continuar al turno de enemigos;
+    endif
+}
+
+stop
+@enduml

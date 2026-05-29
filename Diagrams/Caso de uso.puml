@@ -1,0 +1,63 @@
+@startuml
+' ============================================
+' DIAGRAMA DE CASOS DE USO - DUNGEON CRAWLER
+' ============================================
+
+left to right direction
+skinparam packageStyle rectangle
+
+' ─── ACTORES ───────────────────────────
+actor Jugador as jugador
+
+' ─── SISTEMA PRINCIPAL ─────────────────
+rectangle "Dungeon Crawler" {
+
+    ' ── MENÚ PRINCIPAL ──────────────────
+    (Cargar Partida) as cargar
+    (Nueva Partida) as nueva
+
+    ' ── GESTIÓN DE PARTIDA ─────────────
+    (Guardar Partida) as guardar
+    (Ejecutar Turno) as ejecutar
+
+    ' ── ACCIONES DEL JUGADOR ───────────
+    (Mover Jugador) as mover
+    (Atacar Enemigo) as atacar
+    (Usar Objeto) as usar
+    (Recoger Objeto) as recoger
+    (Abrir Puerta) as abrir
+
+    ' ── INTERNAS ───────────────────────
+    (Validar Movimiento) as validar
+    (Calcular Daño) as calcular
+
+
+' ─── CONEXIONES JUGADOR ────────────────
+jugador --> nueva
+jugador --> cargar
+jugador --> guardar
+jugador --> ejecutar
+
+' ─── RELACIONES INCLUDE ────────────────
+cargar ..> (Seleccionar JSON Configuración) : <<include>>
+cargar ..> (Seleccionar JSON Guardado) : <<include>>
+nueva ..> (Seleccionar JSON Configuración) : <<include>>
+guardar ..> (Elegir Ubicación) : <<include>>
+
+ejecutar ..> mover : <<include>>
+mover ..> validar : <<include>>
+
+atacar ..> calcular : <<include>>
+
+' ─── RELACIONES EXTEND ────────────────
+ejecutar ..> atacar : <<extend>>
+ejecutar ..> usar : <<extend>>
+ejecutar ..> recoger : <<extend>>
+ejecutar ..> abrir : <<extend>>
+
+' ─── GENERALIZACIÓN ───────────────────
+usar <|-- (Usar Poción)
+usar <|-- (Usar Arma)
+usar <|-- (Usar Escudo)
+
+@enduml

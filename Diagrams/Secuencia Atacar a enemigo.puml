@@ -1,0 +1,36 @@
+@startuml
+actor Jugador
+participant "Interfaz" as UI
+participant "MotorJuego" as Motor
+participant "Celda" as C
+participant "Enemigo" as E
+
+Jugador -> UI: Selecciona "Atacar ARRIBA"
+UI -> Motor: ejecutarTurnoJugador(atacar("ARRIBA"))
+
+Motor -> Motor: calcularAdyacente(posJugador, "ARRIBA")
+Motor -> C: getCelda(objetivo)
+C --> Motor: celda
+
+Motor -> C: tieneEnemigo()
+C --> Motor: true
+
+Motor -> C: getEnemigo()
+C --> Motor: enemigo
+
+Motor -> Motor: calcularDmg(jugador.atq, enemigo.def)
+Motor --> Motor: daño
+
+Motor -> E: takeDmg(daño)
+
+alt enemigo.estaVivo() == false
+    Motor -> C: setEnemigo(null)
+    Motor -> Motor: removeEnemigo(enemigo)
+    Motor -> Motor: registrar("Enemigo derrotado")
+else enemigo sigue vivo
+    Motor -> Motor: registrar("Enemigo recibe X daño")
+end
+
+Motor --> UI: actualizar estado
+UI --> Jugador: Mostrar resultado
+@enduml
